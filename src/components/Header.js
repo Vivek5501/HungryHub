@@ -23,7 +23,7 @@ const Header=()=>{
             
           }}
           >{btnName}</button>
-          </ul>
+          </ul> 
         </div>
       </div>
     )
