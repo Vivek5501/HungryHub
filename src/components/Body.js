@@ -76,6 +76,7 @@ const Body = () => {
         >
           Top Rated restaurant
         </button>
+        
       </div>
       
       <div className="res-container">
