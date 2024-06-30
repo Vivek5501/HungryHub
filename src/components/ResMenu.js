@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import useResmenu from "../utilities/useResmenu";
 import { useParams } from "react-router-dom";
+import RestaurantCategory from "./RestaurantCategory";
 
 
 const ResMenu=()=>{
@@ -21,17 +22,22 @@ const ResMenu=()=>{
 
     const {name,cuisines,costForTwoMessage}=resInfo?.cards[2]?.card?.card?.info || {};
 
-    const {itemCards}=resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
-    console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
+    const {itemCards}=resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
+    // console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
 
-    if(itemCards.length==null){
-        return <Shimmer/>
+    const catagories=resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(c=>c.card?.card?.["@type"]==
+    "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+    // console.log(catagories);
+
+    if (!itemCards || itemCards.length === 0) {
+        return <Shimmer />;
     }
+    
 
     // console.log(itemCards);
 
     return(
-    <div className="menu">
+    <div className="menu text-center">
         {/* <button className="veg-only"
         onClick={()=>{
             const filter=itemCards.filter((veg)=>veg.card.info.itemAttribute.vegClassifier);
@@ -39,20 +45,18 @@ const ResMenu=()=>{
 
         }}
          ></button> */}
-         <h1>{name}</h1>
+         <h1 className=" font-bold mt-6 text-2xl">{name}</h1>
     {cuisines ? (
-        <p>{cuisines.join(', ')}</p>
+        <p className="font-bold text-lg">{cuisines.join(', ')}</p>
     ) : (
         <p>No cuisines available</p>
     )}
     <p>{costForTwoMessage}</p>
+
+    {catagories.map((category)=>(
+        <RestaurantCategory data={category?.card?.card}/>
+    ))}
         
-        <ul>
-            {itemCards.map((items)=>(
-                <li key={items.card.info.id}> {items.card.info.name}--{items.card.info.price || items.card.info.defaultPrice}---{items.card.info.itemAttribute.vegClassifier}</li>
-            ))}        
-            
-        </ul>  
     </div>
     );
 };

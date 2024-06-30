@@ -27,6 +27,7 @@ const Body = () => {
     
     
 
+    // console.log(json);
     setresList(
       json?.data.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
