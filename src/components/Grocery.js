@@ -1,5 +1,8 @@
 const Grocery=()=>{
-    return <h1>This is our grocery store </h1>
-}
-
+    return (
+         <div>
+        <h1>Grocery</h1>
+        </div>
+    );
+};
 export default Grocery;
